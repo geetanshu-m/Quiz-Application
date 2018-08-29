@@ -73,6 +73,20 @@ public class quizStorge {
         }
        return new ArrayList<String>();
    }
+   
+   public List getQustion()
+   {
+       List<String> ls = new ArrayList<String>();
+       
+       ls.add(this.ques);
+       ls.add(this.opt1);
+       ls.add(this.opt2);
+       ls.add(this.opt3);
+       ls.add(this.opt4);
+       ls.add(this.ans);
+       
+       return ls;
+   }
    /*
    public static void main(String args[])
    {
