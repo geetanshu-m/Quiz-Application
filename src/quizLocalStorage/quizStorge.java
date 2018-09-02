@@ -31,9 +31,40 @@ public class quizStorge {
        this.opt4 = opt4;
        this.ans = ans;
    }
-   public String toString() {
-        return this.ques + " " + this.opt1 + " " + this.opt2 + " " + this.opt3 + " "+ this.opt4;
+   
+   public String getQuestion()
+   {
+       return this.ques;
    }
+   
+   public String opt1()
+   {
+       return this.opt1;
+   }
+   
+   public String opt2()
+   {
+       return this.opt2;
+   }
+   
+   public String opt3()
+   {
+       return this.opt3;
+   }
+   
+   public String opt4()
+   {
+       return this.opt4;
+   }
+   
+   public String correctOpt()
+   {
+       return this.ans;
+   }
+   
+   /*public String toString() {
+        return this.ques + " " + this.opt1 + " " + this.opt2 + " " + this.opt3 + " "+ this.opt4;
+   }*/
    
    public List parseJSON(String data)
    {

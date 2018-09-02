@@ -128,7 +128,7 @@ public class apiHandler {
     public static void main(String[] args)
     {
         // @ TODO Changeing url according to the need 
-        String url = "https://opentdb.com/api.php?amount=10";
+        String url = "https://opentdb.com/api.php?amount=10&type=multiple";
         
         String receivedData = sendGet(url);
         
