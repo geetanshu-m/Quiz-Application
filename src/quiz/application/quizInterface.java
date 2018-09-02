@@ -15,6 +15,7 @@ import quizLocalStorage.quizStorge;
 public class quizInterface extends javax.swing.JFrame {
     
     public static List<quizStorge> objs;
+    public static List<String> ans;
     public static int noOfQuestions;
     public static int itr = 0;
     
@@ -171,10 +172,9 @@ public class quizInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.itr--;
-        System.out.println(itr);
         if(itr>0)
         {
+            this.itr--;
             this.l1.setText(objs.get(itr).getQuestion());
             this.r1.setText(objs.get(itr).opt1());
             this.r2.setText(objs.get(itr).opt2());
@@ -244,13 +244,6 @@ public class quizInterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                /*
-                //qi.sendGet();
-                qi.l1.setText(qi.data);
-                
-                qi.setVisible(true);
-                */
                 
             }
         });
