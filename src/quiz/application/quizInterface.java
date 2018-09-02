@@ -6,18 +6,34 @@
 package quiz.application;
 
 import java.util.*;
-import quizQuestions.apiHandler;
+import quizLocalStorage.quizStorge;
 
 /**
  *
  * @author workplace
  */
 public class quizInterface extends javax.swing.JFrame {
+    
+    public static List<quizStorge> objs;
+    public static int noOfQuestions;
+    public static int itr = 0;
+    
     /**
      * Creates new form quizInterface
      */
     public quizInterface()  {
         initComponents();
+    }
+    public quizInterface(List<quizStorge> objs)  {
+        initComponents();
+        this.objs = objs;
+        noOfQuestions = objs.size();
+        this.l1.setText(objs.get(0).getQuestion());
+        this.r1.setText(objs.get(0).opt1());
+        this.r2.setText(objs.get(0).opt2());
+        this.r3.setText(objs.get(0).opt3());
+        this.r4.setText(objs.get(0).opt4());
+        this.quesno.setText("Q."+itr);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +54,9 @@ public class quizInterface extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        l1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        l1 = new javax.swing.JTextArea();
+        quesno = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -64,6 +82,11 @@ public class quizInterface extends javax.swing.JFrame {
         });
 
         jButton1.setText("Next");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Prev");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,12 +102,22 @@ public class quizInterface extends javax.swing.JFrame {
             }
         });
 
+        l1.setEditable(false);
+        l1.setColumns(20);
+        l1.setLineWrap(true);
+        l1.setRows(5);
+        l1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(l1);
+
+        quesno.setFont(new java.awt.Font("Source Sans Pro", 2, 36)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addComponent(quesno, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(r2)
                     .addComponent(r1)
@@ -96,15 +129,20 @@ public class quizInterface extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(46, 46, 46)
                         .addComponent(jButton3))
-                    .addComponent(l1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(l1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(quesno, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(r1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(r2)
@@ -133,6 +171,22 @@ public class quizInterface extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.itr--;
+        System.out.println(itr);
+        if(itr>0)
+        {
+            this.l1.setText(objs.get(itr).getQuestion());
+            this.r1.setText(objs.get(itr).opt1());
+            this.r2.setText(objs.get(itr).opt2());
+            this.r3.setText(objs.get(itr).opt3());
+            this.r4.setText(objs.get(itr).opt4());
+        }
+        else
+        {
+            itr = 0;
+            this.jButton2.enable(false);
+        }
+        this.quesno.setText("Q."+itr);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -141,10 +195,29 @@ public class quizInterface extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.itr++;
+        if(itr<noOfQuestions)
+        {
+            this.l1.setText(objs.get(itr).getQuestion());
+            this.r1.setText(objs.get(itr).opt1());
+            this.r2.setText(objs.get(itr).opt2());
+            this.r3.setText(objs.get(itr).opt3());
+            this.r4.setText(objs.get(itr).opt4());
+        }
+        else
+        {
+            itr = noOfQuestions - 1;
+            this.jButton1.enable(false);
+        }
+        this.quesno.setText("Q."+itr);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -172,15 +245,12 @@ public class quizInterface extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                quizInterface qi = new quizInterface();
-                apiHandler qq = new apiHandler();
-                String url = "https://opentdb.com/api.php?amount=10&type=multiple";
-                System.out.print(qq.sendGet(url));
                 /*
                 //qi.sendGet();
                 qi.l1.setText(qi.data);
-                */
+                
                 qi.setVisible(true);
+                */
                 
             }
         });
@@ -193,7 +263,9 @@ public class quizInterface extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JOptionPane jOptionPane1;
-    private javax.swing.JLabel l1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea l1;
+    private javax.swing.JLabel quesno;
     private javax.swing.JRadioButton r1;
     private javax.swing.JRadioButton r2;
     private javax.swing.JRadioButton r3;
