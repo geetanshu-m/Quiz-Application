@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.jsoup.*;
 /**
  *
  * @author workplace
@@ -88,7 +89,14 @@ public class quizStorge {
                 exclude.forEach(opts -> {
                     options.add(opts.toString());
                 });
-                questions.add(new quizStorge(obj1.get("question").toString(), options.get(0), options.get(1), options.get(2), correctAns,correctAns));
+                questions.add(new quizStorge(
+                        Jsoup.parse(obj1.get("question").toString()).text(), 
+                        Jsoup.parse(options.get(0)).text(), 
+                        Jsoup.parse(options.get(1)).text(), 
+                        Jsoup.parse(options.get(2)).text(), 
+                        Jsoup.parse(correctAns).text(),
+                        Jsoup.parse(correctAns).text()
+                ));
             });
             
             return questions;
